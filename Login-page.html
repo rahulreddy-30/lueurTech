@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LueurTech Software Solutions</title>
+</head>
+<script src="https://kit.fontawesome.com/6295fdfa77.js" crossorigin="anonymous"></script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #id1 {
+        margin: 0px;
+        margin-left: 7px;
+    }
+
+    #id2 {
+        margin: 0;
+        margin-left: 7px;
+    }
+
+    .class {
+        position: relative;
+        margin-top: 35vh;
+        margin-bottom: 43vh;
+        /* margin-right: 20vw; */
+        margin-left: 35vw;
+    }
+
+    body {
+        background-color: #2874f0;
+    }
+
+    .center {
+        width: 60px;
+        margin-left: 10vw;
+    }
+
+    #messages {
+        width: 50vw;
+    }
+
+    .up {
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #pswd_info {
+        position: absolute;
+        width: 250px;
+        padding: 15px;
+        background-color: #ffffff;
+        font-size: .875em;
+        border-radius: 5px;
+        z-index: 55;
+        margin-left: 315px;
+        margin-top: -115px;
+    }
+
+    #pswd_info ul li {
+        list-style-type: none;
+    }
+
+    #pswd_info ul li .fa {
+        margin-left: -10px;
+        margin-right: 8px;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .invalid {
+        line-height: 24px;
+        color: red;
+    }
+
+    .valid {
+        line-height: 24px;
+        color: #12ab68;
+    }
+
+    .text-info {
+        font-size: medium;
+    }
+
+    #eye {
+        position: relative;
+        top: -0.5%;
+        left: -3.5%;
+        cursor: pointer;
+    }
+</style>
+
+
+<body>
+    <form onsubmit="return myfun()">
+        <div class="class">
+            <b class="up">UserName</b><input type="text" name="username" id="id1"><br><br>
+
+            <b class="up">Password</b> <input type="password" id="id2">
+            <i class="fas fa-eye-slash" id="eye" aria-hidden="true"></i>
+            <span id="messages"></span><br><br>
+
+            <input type="submit" value="Submit" class="center">
+            <div id="pswd_info">
+                <h6 class="text-info">Password must contain:</h6>
+                <ul>
+                    <li id="letter" class="invalid"><i class="fa fa-times" aria-hidden="true"></i>At least <strong>one
+                            letter</strong></li>
+                    <li id="capital" class="invalid"><i class="fa fa-times" aria-hidden="true"></i>At least <strong>one
+                            capital letter</strong></li>
+                    <li id="number" class="invalid"><i class="fa fa-times" aria-hidden="true"></i>At least <strong>one
+                            number</strong></li>
+                    <li id="length" class="invalid"><i class="fa fa-times" aria-hidden="true"></i>At least <strong>8
+                            Characters</strong></li>
+                </ul>
+            </div>
+
+        </div>
+    </form>
+</body>
+<script>
+    function myfun() {
+        var a = document.getElementById("id2").value;
+        var b=document.getElementById("id1").value;
+        if(a==""&&b==""){
+            alert("fill username and password");
+        }
+        else if(b==""){
+            alert("fill username");
+        }
+        else if (a == "") {
+            alert("fill password");
+            return false;
+        }
+        else if (a.length < 8) {
+            alert("atleast 8 characters");
+            return false;
+        }
+        else if (a.length > 25) {
+            alert("less than 25 characters");
+            return false;
+        }
+        else if (a.search(/[0-9]/) == -1) {
+            alert("Atleast One number");
+            return false;
+        }
+        else if (a.search(/[A-Z]/) == -1) {
+            alert("one capital letter");
+            return false;
+        }else{
+        alert("valid password");
+        document.getElementById('messages').style.color = "green";
+        return false;}
+    }
+    document.getElementById("id2").addEventListener("keyup", function () {
+        validate(document.getElementById("id2").value);
+    });
+
+    function validate(pswd) {
+
+        if (pswd.length >= 8) {
+            valid("length");
+        } else {
+            invalid("length");
+        }
+        if (pswd.match(/[A-z]/)) {
+            valid("letter");
+        } else {
+            invalid("letter");
+        }
+        if (pswd.match(/[A-Z]/)) {
+            valid("capital");
+        } else {
+            invalid("capital");
+        }
+        if (pswd.match(/\d/)) {
+            valid("number");
+        } else {
+            invalid("number");
+        }
+    }
+    function AddClass(id, cl) {
+        document.getElementById(id).classList.add(cl);
+    }
+    function RemoveClass(id, cl) {
+        document.getElementById(id).classList.remove(cl);
+    }
+    function AddClassOnIcon(id, cl) {
+        document.getElementById(id).firstChild.classList.add(cl);
+    }
+    function RemoveClassOnIcon(id, cl) {
+        document.getElementById(id).firstChild.classList.remove(cl);
+    }
+    function valid(id) {
+        AddClass(id, "valid");
+        RemoveClass(id, "invalid");
+        AddClassOnIcon(id, "fa-check");
+        RemoveClassOnIcon(id, "fa-times");
+    }
+    function invalid(id) {
+        AddClass(id, "invalid");
+        RemoveClass(id, "valid");
+        AddClassOnIcon(id, "fa-times");
+        RemoveClassOnIcon(id, "fa-check");
+    }
+document.getElementById("eye").addEventListener("click",function(){
+        if(document.getElementById("id2").type=="password"){
+            document.getElementById("id2").type="text";
+            this.classList.remove("fa-eye-slash");
+            this.classList.add("fa-eye");
+        }else{
+            document.getElementById("id2").type="password";
+            this.classList.add("fa-eye-slash");
+            this.classList.remove("fa-eye");
+        }
+    });
+</script>
+
+</html>
