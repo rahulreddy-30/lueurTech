@@ -108,7 +108,7 @@
             <span id="messages"></span><br><br>
 
             <input type="submit" value="Submit" class="center">
-            <div id="pswd_info">
+            <div id="pswd_info" class="hide">
                 <h6 class="text-info">Password must contain:</h6>
                 <ul>
                     <li id="letter" class="invalid"><i class="fa fa-times" aria-hidden="true"></i>At least <strong>one
@@ -220,6 +220,12 @@ document.getElementById("eye").addEventListener("click",function(){
             this.classList.add("fa-eye-slash");
             this.classList.remove("fa-eye");
         }
+    });
+    document.getElementById("id2").addEventListener("focus",function(){
+        RemoveClass("pswd_info","hide");
+    });
+    document.getElementById("id2").addEventListener("blur",function(){
+        AddClass("pswd_info","hide");
     });
 </script>
 
